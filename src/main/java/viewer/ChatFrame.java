@@ -468,7 +468,7 @@ public class ChatFrame extends javax.swing.JFrame {
                 e1.printStackTrace();
             }
         }
-        btnSendFile.setEnabled(false);
+//        btnSendFile.setEnabled(false);
     }//GEN-LAST:event_btnSendFileActionPerformed
 
     class Receiver implements Runnable {
