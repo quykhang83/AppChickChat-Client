@@ -41,10 +41,10 @@ public class FileMessage extends Message {
     }
 
     @Override
-    protected void printMessage(String username, JTextPane chatWindows) {
+    public void printMessage(String sender, JTextPane chatWindows) {
         StyledDocument doc = chatWindows.getStyledDocument();
-        SimpleAttributeSet right = new SimpleAttributeSet();
-        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        //SimpleAttributeSet right = new SimpleAttributeSet();
+        //StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
 
         Style userStyle = doc.getStyle("User style");
         if (userStyle == null) {
@@ -53,14 +53,17 @@ public class FileMessage extends Message {
         }
 
         if (yourMessage == true) {
-            StyleConstants.setForeground(userStyle, Color.red);
+            //StyleConstants.setForeground(userStyle, Color.red);
+            try {
+                doc.insertString(doc.getLength(), "You: ", userStyle);
+            } catch (BadLocationException e) {
+            }
         } else {
-            StyleConstants.setForeground(userStyle, Color.BLUE);
-        }
-
-        try {
-            doc.insertString(doc.getLength(), username + ": ", userStyle);
-        } catch (BadLocationException e) {
+            //StyleConstants.setForeground(userStyle, Color.BLUE);
+            try {
+                doc.insertString(doc.getLength(), sender + ": ", userStyle);
+            } catch (BadLocationException e) {
+            }
         }
 
         Style linkStyle = doc.getStyle("Link style");
@@ -69,7 +72,8 @@ public class FileMessage extends Message {
             StyleConstants.setForeground(linkStyle, Color.BLUE);
             StyleConstants.setUnderline(linkStyle, true);
             StyleConstants.setBold(linkStyle, true);
-            linkStyle.addAttribute("link", new HyberlinkListener(filename, file) {});
+            linkStyle.addAttribute("link", new HyberlinkListener(filename, file) {
+            });
         }
 
         if (chatWindows.getMouseListeners() != null) {

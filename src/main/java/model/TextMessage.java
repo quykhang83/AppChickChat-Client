@@ -26,10 +26,12 @@ public class TextMessage extends Message {
     }
 
     @Override
-    protected void printMessage(String username, JTextPane chatWindows) {
+    public void printMessage(String sender, JTextPane chatWindows) {
         StyledDocument doc = chatWindows.getStyledDocument();
         SimpleAttributeSet right = new SimpleAttributeSet();
         StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        SimpleAttributeSet left = new SimpleAttributeSet();
+        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
 
         Style userStyle = doc.getStyle("User style");
         if (userStyle == null) {
@@ -38,15 +40,20 @@ public class TextMessage extends Message {
         }
 
         if (yourMessage == true) {
-            StyleConstants.setForeground(userStyle, Color.RED);
+            //StyleConstants.setForeground(userStyle, Color.RED);
+            //doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+            // In ra tên người gửi
+            try {
+                doc.insertString(doc.getLength(), "You: ", userStyle);
+            } catch (BadLocationException e) {
+            }
         } else {
-            StyleConstants.setForeground(userStyle, Color.BLUE);
-        }
-
-        // In ra tên người gửi
-        try {
-            doc.insertString(doc.getLength(), username + ": ", userStyle);
-        } catch (BadLocationException e) {
+            //StyleConstants.setForeground(userStyle, Color.BLUE);
+            //doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+            try {
+                doc.insertString(doc.getLength(), sender + ": ", userStyle);
+            } catch (BadLocationException e) {
+            }
         }
 
         Style messageStyle = doc.getStyle("Message style");
@@ -59,9 +66,15 @@ public class TextMessage extends Message {
         // In ra nội dung tin nhắn
         try {
             doc.insertString(doc.getLength(), message + "\n", messageStyle);
-            doc.setParagraphAttributes(doc.getLength() + 1, 1, right, false);
         } catch (BadLocationException e) {
         }
+//        if (yourMessage == true) {
+//            doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+//        }
+//        else {
+//            doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+//        }
+
     }
 
 }

@@ -29,7 +29,7 @@ public abstract class Message {
         this.yourMessage = yourMessage;
     }
     
-    protected abstract void printMessage(String username, JTextPane chatWindows);
+    public abstract void printMessage(String username, JTextPane chatWindows);
 
     public String getSender() {
         return sender;

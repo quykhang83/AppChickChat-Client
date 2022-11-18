@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -19,6 +20,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import model.FileMessage;
+import model.Message;
+import model.TextMessage;
 
 public class ChatFrame extends javax.swing.JFrame {
 
@@ -319,45 +323,47 @@ public class ChatFrame extends javax.swing.JFrame {
     }
 
     public void newMessage(String sender, String receiveString, String message, Boolean yourMessage) {
-        StyledDocument doc = chatWindow.getStyledDocument();
-        SimpleAttributeSet right = new SimpleAttributeSet();
-        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        TextMessage tm = new TextMessage(message, sender, receiveString, yourMessage);
 
         if (yourMessage == false && cbOnlineUsers.getSelectedItem().equals(sender) == false) {
             String tmp = messageContent.get(sender);
             messageContent.replace(sender, tmp + sender + ": " + message + "\n");
         } else if (yourMessage == false && sender.equals(cbOnlineUsers.getSelectedItem())) {
-            String v = chatWindow.getText();
-            chatWindow.setText(v + sender + ": " + message + "\n");
+//            String v = chatWindow.getText();
+//            chatWindow.setText(v + sender + ": " + message + "\n");
+
+            tm.printMessage(sender, chatWindow);
             messageContent.replace(sender, chatWindow.getText());
         } else {
-            String v = chatWindow.getText();
-            chatWindow.setText(v + "You" + ": " + message + "\n");
+//            String v = chatWindow.getText();
+//            chatWindow.setText(v + "You" + ": " + message + "\n");
 
-//            int length = doc.getLength();
-//            try {
-//                doc.insertString(doc.getLength(), "\ntest", null);
-//            } catch (BadLocationException ex) {
-//                ex.printStackTrace();
-//            }
-//            doc.setParagraphAttributes(length + 1, 1, right, false);
+            tm.printMessage(sender, chatWindow);
             messageContent.replace((String) cbOnlineUsers.getSelectedItem(), chatWindow.getText());
         }
     }
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         if (!txtChat.getText().equals("") && cbOnlineUsers.getSelectedItem() != null) {
-            try {
-                String messageSent = "Text" + "," + labelUserName.getText() + ","
-                        + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
-                output.writeUTF(messageSent);
-                output.flush();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-                newMessage("ERROR", "ERROR", "Network error!", true);
-            }
-            newMessage(labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), txtChat.getText(), true);
-            txtChat.setText("");
+            Thread sendTextThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String messageSent = "Text" + "," + labelUserName.getText() + ","
+                                + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
+                        output.writeUTF(messageSent);
+                        output.flush();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                        newMessage("ERROR", "ERROR", "Network error!", true);
+                    }
+                    newMessage(labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), txtChat.getText(), true);
+                    autoScroll();
+                    txtChat.setText("");
+                }
+
+            });
+            sendTextThread.start();
         }
 
     }//GEN-LAST:event_btnSendActionPerformed
@@ -374,17 +380,25 @@ public class ChatFrame extends javax.swing.JFrame {
     private void txtChatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtChatKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (!txtChat.getText().equals("") && cbOnlineUsers.getSelectedItem() != null) {
-                try {
-                    String messageSent = "Text" + "," + labelUserName.getText() + ","
-                            + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
-                    output.writeUTF(messageSent);
-                    output.flush();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    newMessage("ERROR", "ERROR", "Network error!", true);
-                }
-                newMessage(labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), txtChat.getText(), true);
-                txtChat.setText("");
+                Thread sendTextThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String messageSent = "Text" + "," + labelUserName.getText() + ","
+                                    + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
+                            output.writeUTF(messageSent);
+                            output.flush();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                            newMessage("ERROR", "ERROR", "Network error!", true);
+                        }
+                        newMessage(labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), txtChat.getText(), true);
+                        autoScroll();
+                        txtChat.setText("");
+                    }
+
+                });
+                sendTextThread.start();
             }
         }
     }//GEN-LAST:event_txtChatKeyPressed
@@ -431,9 +445,18 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_labelAvatarMouseClicked
 
     private void btnSendFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendFileActionPerformed
+//        Thread sendFileThread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                
+//            }
+//
+//        });
+//        sendFileThread.start();
+
         // Hiển thị hộp thoại cho người dùng chọn file để gửi
         JFileChooser fileChooser = new JFileChooser();
-        int rVal = fileChooser.showOpenDialog(this);
+        int rVal = fileChooser.showOpenDialog(null);
         if (rVal == JFileChooser.APPROVE_OPTION) {
             byte[] selectedFile = new byte[(int) fileChooser.getSelectedFile().length()];
             BufferedInputStream bis;
@@ -442,10 +465,11 @@ public class ChatFrame extends javax.swing.JFrame {
                 // Đọc file vào biến selectedFile
                 bis.read(selectedFile, 0, selectedFile.length);
 
-                output.writeUTF("File");
-                output.writeUTF((String) cbOnlineUsers.getSelectedItem());
-                output.writeUTF(fileChooser.getSelectedFile().getName());
-                output.writeUTF(String.valueOf(selectedFile.length));
+                String messageSent = "File" + ","
+                        + labelUserName.getText() + "," + (String) cbOnlineUsers.getSelectedItem() + ","
+                        + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);
+
+                output.writeUTF(messageSent);
 
                 int size = selectedFile.length;
                 int bufferSize = 2048;
@@ -463,12 +487,14 @@ public class ChatFrame extends javax.swing.JFrame {
                 bis.close();
 
                 // In ra màn hình file
-//                newFile(username, fileChooser.getSelectedFile().getName(), selectedFile, true);
+                FileMessage fm = new FileMessage(fileChooser.getSelectedFile().getName(), selectedFile,
+                        labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), true);
+                fm.printMessage(labelUserName.getText(), chatWindow);
+                autoScroll();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         }
-//        btnSendFile.setEnabled(false);
     }//GEN-LAST:event_btnSendFileActionPerformed
 
     class Receiver implements Runnable {
@@ -483,7 +509,14 @@ public class ChatFrame extends javax.swing.JFrame {
         public void run() {
             try {
                 while (true) {
-                    // Chờ tin nhắn từ server
+//                    Thread readMessageThread = new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                        }
+//                    });
+//                    readMessageThread.start();
+                    // Chờ thông điệp từ server
                     String[] messageReceived = input.readUTF().split(",");
 
                     if (messageReceived[0].equals("Text")) {
@@ -493,6 +526,30 @@ public class ChatFrame extends javax.swing.JFrame {
                         String message = messageReceived[3];
                         // In tin nhắn lên màn hình chat với người gửi
                         newMessage(sender, receiver, message, false);
+                        autoScroll();
+
+                    } else if (messageReceived[0].equals("File")) {
+                        // Nhận một file
+                        String sender = messageReceived[1];
+                        String receiver = messageReceived[2];
+                        String filename = messageReceived[3];
+                        int size = Integer.parseInt(messageReceived[4]);
+                        int bufferSize = 2048;
+                        byte[] buffer = new byte[bufferSize];
+                        ByteArrayOutputStream file = new ByteArrayOutputStream();
+
+                        while (size > 0) {
+                            input.read(buffer, 0, Math.min(bufferSize, size));
+                            file.write(buffer, 0, Math.min(bufferSize, size));
+                            size -= bufferSize;
+                        }
+
+                        // In ra màn hình file
+                        FileMessage fm = new FileMessage(filename, file.toByteArray(),
+                                sender, receiver, false);
+                        fm.printMessage(sender, chatWindow);
+                        autoScroll();
+
                     } else if (messageReceived[0].equals("Online users")) {
                         // Nhận yêu cầu cập nhật danh sách người dùng trực tuyến
                         String[] users = input.readUTF().split(",");
@@ -529,6 +586,8 @@ public class ChatFrame extends javax.swing.JFrame {
                 try {
                     if (input != null) {
                         input.close();
+                    } else {
+                        System.out.println("Have redundant data...");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
