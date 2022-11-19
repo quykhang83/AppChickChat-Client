@@ -47,6 +47,7 @@ public class ChangeAvatarFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         labelAvatar = new javax.swing.JLabel();
         labelAvatarText = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TchaT Change Avatar");
@@ -60,39 +61,42 @@ public class ChangeAvatarFrame extends javax.swing.JFrame {
         btnBack.setForeground(new java.awt.Color(51, 51, 51));
         btnBack.setText("Back");
         btnBack.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
         jPanel1.add(btnBack);
-        btnBack.setBounds(510, 300, 73, 48);
+        btnBack.setBounds(320, 310, 73, 48);
 
         btnSaveChanges.setBackground(new java.awt.Color(30, 30, 30));
         btnSaveChanges.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         btnSaveChanges.setForeground(new java.awt.Color(255, 255, 255));
         btnSaveChanges.setText("Save Changes");
         btnSaveChanges.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSaveChanges.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSaveChanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveChangesActionPerformed(evt);
             }
         });
         jPanel1.add(btnSaveChanges);
-        btnSaveChanges.setBounds(320, 300, 160, 48);
+        btnSaveChanges.setBounds(440, 310, 160, 48);
 
         btnChooseAvatar.setBackground(new java.awt.Color(255, 255, 255));
         btnChooseAvatar.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         btnChooseAvatar.setForeground(new java.awt.Color(51, 51, 51));
         btnChooseAvatar.setText("Choose new Avatar");
         btnChooseAvatar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnChooseAvatar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnChooseAvatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChooseAvatarActionPerformed(evt);
             }
         });
         jPanel1.add(btnChooseAvatar);
-        btnChooseAvatar.setBounds(320, 220, 260, 48);
+        btnChooseAvatar.setBounds(310, 220, 260, 48);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -104,12 +108,17 @@ public class ChangeAvatarFrame extends javax.swing.JFrame {
 
         labelAvatarText.setFont(new java.awt.Font("Freestyle Script", 0, 48)); // NOI18N
         labelAvatarText.setForeground(new java.awt.Color(91, 90, 90));
+        labelAvatarText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelAvatarText.setText("Avatar");
         jPanel2.add(labelAvatarText);
-        labelAvatarText.setBounds(85, 265, 90, 45);
+        labelAvatarText.setBounds(15, 265, 230, 45);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 20, 260, 330);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/cc.PNG"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(360, 20, 154, 160);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,6 +201,7 @@ public class ChangeAvatarFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnChooseAvatar;
     private javax.swing.JButton btnSaveChanges;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelAvatar;

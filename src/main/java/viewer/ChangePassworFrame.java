@@ -53,6 +53,7 @@ public class ChangePassworFrame extends javax.swing.JFrame {
         labelNotification = new javax.swing.JLabel();
         lbShowPW = new javax.swing.JLabel();
         lbHidePW = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TchaT Change Password");
@@ -64,69 +65,71 @@ public class ChangePassworFrame extends javax.swing.JFrame {
         labelChangePass.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
         labelChangePass.setText("Change Password");
         jPanel1.add(labelChangePass);
-        labelChangePass.setBounds(180, 30, 300, 40);
+        labelChangePass.setBounds(160, 20, 300, 40);
 
         txtCurrentPassword.setBackground(new java.awt.Color(222, 222, 222));
         txtCurrentPassword.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         txtCurrentPassword.setForeground(new java.awt.Color(91, 90, 90));
         txtCurrentPassword.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel1.add(txtCurrentPassword);
-        txtCurrentPassword.setBounds(220, 110, 160, 34);
+        txtCurrentPassword.setBounds(270, 80, 160, 34);
 
         labelCurrentPass.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         labelCurrentPass.setText("Current Password");
         jPanel1.add(labelCurrentPass);
-        labelCurrentPass.setBounds(30, 120, 160, 23);
+        labelCurrentPass.setBounds(80, 90, 160, 23);
 
         txtNewPassword.setBackground(new java.awt.Color(222, 222, 222));
         txtNewPassword.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         txtNewPassword.setForeground(new java.awt.Color(91, 90, 90));
         txtNewPassword.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel1.add(txtNewPassword);
-        txtNewPassword.setBounds(220, 160, 160, 34);
+        txtNewPassword.setBounds(270, 130, 160, 34);
 
         labelNewPass.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         labelNewPass.setText("New Password");
         jPanel1.add(labelNewPass);
-        labelNewPass.setBounds(30, 170, 160, 23);
+        labelNewPass.setBounds(80, 140, 160, 23);
 
         txtConfirmPassword.setBackground(new java.awt.Color(222, 222, 222));
         txtConfirmPassword.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         txtConfirmPassword.setForeground(new java.awt.Color(91, 90, 90));
         txtConfirmPassword.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel1.add(txtConfirmPassword);
-        txtConfirmPassword.setBounds(220, 210, 160, 34);
+        txtConfirmPassword.setBounds(270, 180, 160, 34);
 
         labelConfirmPass.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         labelConfirmPass.setText("Confirm Password");
         jPanel1.add(labelConfirmPass);
-        labelConfirmPass.setBounds(30, 220, 180, 23);
+        labelConfirmPass.setBounds(80, 190, 180, 23);
 
         btnBack.setBackground(new java.awt.Color(255, 255, 255));
         btnBack.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         btnBack.setForeground(new java.awt.Color(51, 51, 51));
         btnBack.setText("Back");
         btnBack.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
         jPanel1.add(btnBack);
-        btnBack.setBounds(430, 340, 130, 39);
+        btnBack.setBounds(270, 300, 130, 39);
 
         btnChange.setBackground(new java.awt.Color(30, 30, 30));
         btnChange.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         btnChange.setForeground(new java.awt.Color(255, 255, 255));
         btnChange.setText("Change");
         btnChange.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnChange.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangeActionPerformed(evt);
             }
         });
         jPanel1.add(btnChange);
-        btnChange.setBounds(30, 340, 130, 39);
+        btnChange.setBounds(430, 300, 130, 39);
 
         labelNotification.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         labelNotification.setForeground(new java.awt.Color(204, 0, 0));
@@ -140,7 +143,7 @@ public class ChangePassworFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(lbShowPW);
-        lbShowPW.setBounds(400, 160, 40, 40);
+        lbShowPW.setBounds(450, 130, 40, 40);
 
         lbHidePW.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/hide_icon.png"))); // NOI18N
         lbHidePW.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,7 +152,11 @@ public class ChangePassworFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(lbHidePW);
-        lbHidePW.setBounds(400, 160, 40, 40);
+        lbHidePW.setBounds(450, 130, 40, 40);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/cc.PNG"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(40, 220, 150, 160);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,6 +285,7 @@ public class ChangePassworFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnChange;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelChangePass;
     private javax.swing.JLabel labelConfirmPass;
