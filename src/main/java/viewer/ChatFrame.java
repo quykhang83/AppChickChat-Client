@@ -464,14 +464,8 @@ public class ChatFrame extends javax.swing.JFrame {
 
                         String messageSent = "File" + ","
                                 + labelUserName.getText() + "," + (String) cbOnlineUsers.getSelectedItem() + ","
-                                + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);
-
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException ex) {
-
-                        }
-
+                                + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);                              try {Thread.sleep(5000);} catch (InterruptedException ex) {}
+                        
                         output.writeUTF(messageSent);
 
                         int size = selectedFile.length;
@@ -518,14 +512,6 @@ public class ChatFrame extends javax.swing.JFrame {
         public void run() {
             try {
                 while (true) {
-//                    Thread readMessageThread = new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                        }
-//                    });
-//                    readMessageThread.start();
-
                     // Chờ thông điệp từ server
                     String[] messageReceived = input.readUTF().split(",");
 
