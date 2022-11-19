@@ -198,6 +198,7 @@ public class ChatFrame extends javax.swing.JFrame {
         btnSend.setForeground(new java.awt.Color(255, 255, 255));
         btnSend.setText("Send");
         btnSend.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSend.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSendActionPerformed(evt);
@@ -220,8 +221,8 @@ public class ChatFrame extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -233,12 +234,12 @@ public class ChatFrame extends javax.swing.JFrame {
         );
 
         jPanel3.add(jPanel4);
-        jPanel4.setBounds(230, 100, 710, 370);
+        jPanel4.setBounds(240, 100, 700, 370);
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/tchat_logo6.png"))); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/cc1.PNG"))); // NOI18N
         lblLogo.setText("jLabel1");
         jPanel3.add(lblLogo);
-        lblLogo.setBounds(10, 10, 220, 520);
+        lblLogo.setBounds(10, 190, 230, 340);
 
         labelAvatar.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         labelAvatar.setText("avatar");
@@ -261,6 +262,7 @@ public class ChatFrame extends javax.swing.JFrame {
         btnSendFile.setForeground(new java.awt.Color(255, 255, 255));
         btnSendFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/attached.png"))); // NOI18N
         btnSendFile.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSendFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSendFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSendFileActionPerformed(evt);

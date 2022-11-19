@@ -161,52 +161,54 @@ public class LoginFrame extends javax.swing.JFrame {
         labelUserName.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         labelUserName.setText("Username");
         jPanel1.add(labelUserName);
-        labelUserName.setBounds(60, 160, 130, 31);
+        labelUserName.setBounds(60, 180, 130, 31);
 
         lblLogo.setBackground(new java.awt.Color(255, 255, 255));
         lblLogo.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/tchat_logo.png"))); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/cc.PNG"))); // NOI18N
         jPanel1.add(lblLogo);
-        lblLogo.setBounds(180, 10, 140, 110);
+        lblLogo.setBounds(160, 10, 154, 150);
 
         txtUserName.setBackground(new java.awt.Color(222, 222, 222));
         txtUserName.setFont(new java.awt.Font("Bahnschrift", 0, 22)); // NOI18N
         txtUserName.setForeground(new java.awt.Color(91, 90, 90));
         txtUserName.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel1.add(txtUserName);
-        txtUserName.setBounds(210, 160, 180, 34);
+        txtUserName.setBounds(180, 180, 180, 34);
 
         labelPassword.setBackground(new java.awt.Color(0, 0, 0));
         labelPassword.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         labelPassword.setText("Password");
         jPanel1.add(labelPassword);
-        labelPassword.setBounds(60, 200, 130, 34);
+        labelPassword.setBounds(60, 220, 130, 34);
 
         btnLogin.setBackground(new java.awt.Color(30, 30, 30));
         btnLogin.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Log In");
         btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
         jPanel1.add(btnLogin);
-        btnLogin.setBounds(60, 310, 130, 39);
+        btnLogin.setBounds(70, 310, 130, 39);
 
         btnSignUp.setBackground(new java.awt.Color(30, 30, 30));
         btnSignUp.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         btnSignUp.setForeground(new java.awt.Color(255, 255, 255));
         btnSignUp.setText("Sign Up");
         btnSignUp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSignUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSignUpActionPerformed(evt);
             }
         });
         jPanel1.add(btnSignUp);
-        btnSignUp.setBounds(260, 310, 130, 39);
+        btnSignUp.setBounds(270, 310, 130, 39);
 
         labelNotification.setForeground(new java.awt.Color(204, 0, 0));
         jPanel1.add(labelNotification);
@@ -219,7 +221,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(lbShowPW);
-        lbShowPW.setBounds(400, 200, 40, 40);
+        lbShowPW.setBounds(370, 220, 40, 40);
 
         lbHidePW.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/hide_icon.png"))); // NOI18N
         lbHidePW.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,7 +230,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(lbHidePW);
-        lbHidePW.setBounds(400, 200, 40, 40);
+        lbHidePW.setBounds(370, 220, 40, 40);
 
         txtPassword.setBackground(new java.awt.Color(222, 222, 222));
         txtPassword.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
@@ -240,7 +242,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtPassword);
-        txtPassword.setBounds(210, 200, 180, 34);
+        txtPassword.setBounds(180, 220, 180, 34);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
