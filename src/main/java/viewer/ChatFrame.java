@@ -316,7 +316,7 @@ public class ChatFrame extends javax.swing.JFrame {
         Image thongtinKH_img = thongtinKhachHang_icon.getImage();
         Image thongtinKHImgScale = thongtinKH_img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon thongtinKHScaledIcon = new ImageIcon(thongtinKHImgScale);
-        lblLogo.setIcon(thongtinKHScaledIcon);
+//        lblLogo.setIcon(thongtinKHScaledIcon);
     }
 
     private void loadavatar() {
@@ -388,6 +388,7 @@ public class ChatFrame extends javax.swing.JFrame {
                         try {
                             String messageSent = "Text" + "," + labelUserName.getText() + ","
                                     + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
+
                             output.writeUTF(messageSent);
                             output.flush();
                         } catch (IOException e1) {
@@ -447,56 +448,62 @@ public class ChatFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_labelAvatarMouseClicked
 
     private void btnSendFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendFileActionPerformed
-//        Thread sendFileThread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                
-//            }
-//
-//        });
-//        sendFileThread.start();
+        Thread sendFileThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Hiển thị hộp thoại cho người dùng chọn file để gửi
+                JFileChooser fileChooser = new JFileChooser();
+                int rVal = fileChooser.showOpenDialog(null);
+                if (rVal == JFileChooser.APPROVE_OPTION) {
+                    byte[] selectedFile = new byte[(int) fileChooser.getSelectedFile().length()];
+                    BufferedInputStream bis;
+                    try {
+                        bis = new BufferedInputStream(new FileInputStream(fileChooser.getSelectedFile()));
+                        // Đọc file vào biến selectedFile
+                        bis.read(selectedFile, 0, selectedFile.length);
 
-        // Hiển thị hộp thoại cho người dùng chọn file để gửi
-        JFileChooser fileChooser = new JFileChooser();
-        int rVal = fileChooser.showOpenDialog(null);
-        if (rVal == JFileChooser.APPROVE_OPTION) {
-            byte[] selectedFile = new byte[(int) fileChooser.getSelectedFile().length()];
-            BufferedInputStream bis;
-            try {
-                bis = new BufferedInputStream(new FileInputStream(fileChooser.getSelectedFile()));
-                // Đọc file vào biến selectedFile
-                bis.read(selectedFile, 0, selectedFile.length);
+                        String messageSent = "File" + ","
+                                + labelUserName.getText() + "," + (String) cbOnlineUsers.getSelectedItem() + ","
+                                + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);
 
-                String messageSent = "File" + ","
-                        + labelUserName.getText() + "," + (String) cbOnlineUsers.getSelectedItem() + ","
-                        + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException ex) {
 
-                output.writeUTF(messageSent);
+                        }
 
-                int size = selectedFile.length;
-                int bufferSize = 2048;
-                int offset = 0;
+                        output.writeUTF(messageSent);
 
-                // Lần lượt gửi cho server từng buffer cho đến khi hết file
-                while (size > 0) {
-                    output.write(selectedFile, offset, Math.min(size, bufferSize));
-                    offset += Math.min(size, bufferSize);
-                    size -= bufferSize;
+                        int size = selectedFile.length;
+                        int bufferSize = 2048;
+                        int offset = 0;
+
+                        // Lần lượt gửi cho server từng buffer cho đến khi hết file
+                        while (size > 0) {
+                            output.write(selectedFile, offset, Math.min(size, bufferSize));
+                            offset += Math.min(size, bufferSize);
+                            size -= bufferSize;
+                        }
+
+                        output.flush();
+
+                        bis.close();
+
+                        // In ra màn hình file
+                        FileMessage fm = new FileMessage(fileChooser.getSelectedFile().getName(), selectedFile,
+                                labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), true);
+                        fm.printMessage(labelUserName.getText(), chatWindow);
+                        autoScroll();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
-
-                output.flush();
-
-                bis.close();
-
-                // In ra màn hình file
-                FileMessage fm = new FileMessage(fileChooser.getSelectedFile().getName(), selectedFile,
-                        labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), true);
-                fm.printMessage(labelUserName.getText(), chatWindow);
-                autoScroll();
-            } catch (IOException e1) {
-                e1.printStackTrace();
             }
-        }
+
+        });
+        sendFileThread.start();
+
+
     }//GEN-LAST:event_btnSendFileActionPerformed
 
     class Receiver implements Runnable {
@@ -518,6 +525,7 @@ public class ChatFrame extends javax.swing.JFrame {
 //                        }
 //                    });
 //                    readMessageThread.start();
+
                     // Chờ thông điệp từ server
                     String[] messageReceived = input.readUTF().split(",");
 

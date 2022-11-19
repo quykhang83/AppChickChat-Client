@@ -44,7 +44,7 @@ public class LoginFrame extends javax.swing.JFrame {
         Image thongtinKH_img = thongtinKhachHang_icon.getImage();
         Image thongtinKHImgScale = thongtinKH_img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon thongtinKHScaledIcon = new ImageIcon(thongtinKHImgScale);
-        lblLogo.setIcon(thongtinKHScaledIcon);
+//        lblLogo.setIcon(thongtinKHScaledIcon);
 
         //Show password icon
         ImageIcon show_icon = new ImageIcon(getClass().getResource("/Image/show_icon.png"));
